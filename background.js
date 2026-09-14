@@ -1,33 +1,40 @@
 const JUNK_PARAMS = new Set([
+  // Google Ads
+  "gclid", "gclsrc", "gbraid", "wbraid", "dclid",
+  // Microsoft / Bing
+  "msclkid",
+  // Facebook / Meta
+  "fbclid",
+  // Instagram
+  "igshid", "igsh",
+  // Twitter / X
+  "twclid",
+  // TikTok
+  "ttclid",
+  // Yandex / Openstat
+  "yclid", "_openstat",
+  // Mailchimp / Mandrill
+  "mc_cid", "mc_eid", "oly_anon_id", "oly_enc_id",
+  // HubSpot
+  "_hsenc", "_hsmi", "hsCtaTracking",
+  // Marketo
+  "mkt_tok",
   // Amazon
   "_encoding", "pd_rd_w", "pd_rd_wg", "pd_rd_r", "pd_rd_i",
   "pf_rd_p", "pf_rd_r", "pf_rd_m", "pf_rd_s", "pf_rd_t", "pf_rd_i",
   "content-id", "ref_", "ref",
   // LinkedIn
   "trackingId", "lipi", "licu",
-  // Instagram
-  "igshid", "igsh",
   // Spotify
   "si",
-  // Mailchimp
-  "mc_cid", "mc_eid",
-  "oly_anon_id", "oly_enc_id",
-  // HubSpot
-  "_hsenc", "_hsmi", "hsCtaTracking",
-  // Marketo
-  "mkt_tok",
-  // Twitter/X
-  "twclid",
-  // Facebook
-  "fbclid",
-  // Microsoft
-  "msclkid",
-  // Google
-  "gclsrc", "dclid",
+  // YouTube
+  "feature",
   // Zanox
   "zanpid",
   // LinkedIn search session state
   "origin", "sortBy",
+  // UTM params (utm_source, utm_medium, utm_campaign, utm_term, utm_content, …)
+  // are matched by the "utm_" prefix in cleanUrl() below.
 ]);
 
 function cleanUrl(rawUrl) {
@@ -39,7 +46,7 @@ function cleanUrl(rawUrl) {
     const lower = key.toLowerCase();
     if (
       JUNK_PARAMS.has(key) || JUNK_PARAMS.has(lower) ||
-      lower.startsWith("pd_rd_") || lower.startsWith("pf_rd_") ||
+      lower.startsWith("utm_") || lower.startsWith("pd_rd_") || lower.startsWith("pf_rd_") ||
       lower.startsWith("_hs") || lower.startsWith("mc_")
     ) {
       toDelete.push(key);
@@ -61,6 +68,7 @@ chrome.commands.onCommand.addListener(async (command) => {
 
   chrome.tabs.sendMessage(tab.id, { type: "SHOW_TOAST", url: cleanedUrl });
 
+  // Badge feedback as fallback (e.g. on chrome:// pages where content script can't run)
   chrome.action.setBadgeText({ text: "✓", tabId: tab.id });
   chrome.action.setBadgeBackgroundColor({ color: "#22c55e", tabId: tab.id });
   setTimeout(() => chrome.action.setBadgeText({ text: "", tabId: tab.id }), 1500);
