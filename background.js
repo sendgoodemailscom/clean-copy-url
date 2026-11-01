@@ -99,7 +99,7 @@ async function showToast(url, tabId) {
         const toast = document.createElement("div");
         toast.id = ID;
         toast.innerHTML =
-          '<span style="font-size:15px;line-height:1">🔗</span>' +
+          '<span style="display:flex;align-items:center;justify-content:center;width:22px;height:22px;flex-shrink:0;background:#00E5FF;border:1.5px solid #15121f;border-radius:6px;font-size:12px;line-height:1">🔗</span>' +
           '<span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500">' + esc(display) + '</span>' +
           '<span style="color:#178a4c;font-weight:700;font-size:11px;flex-shrink:0">Copied!</span>';
         Object.assign(toast.style, {
