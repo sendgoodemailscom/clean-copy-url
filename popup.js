@@ -68,9 +68,10 @@ function cleanUrl(rawUrl) {
   document.getElementById("cleanUrl").textContent = clean;
 
   if (stripped.length) {
+    const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     document.getElementById("strippedSection").style.display = "block";
     document.getElementById("strippedList").innerHTML =
-      stripped.map(p => `<span>— ${p}</span>`).join("");
+      stripped.map(p => `<span>${esc(p)}</span>`).join("");
   }
 
   document.getElementById("copyBtn").addEventListener("click", async () => {
