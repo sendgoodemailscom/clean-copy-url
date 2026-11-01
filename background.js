@@ -100,19 +100,21 @@ async function showToast(url, tabId) {
         toast.id = ID;
         toast.innerHTML =
           '<span style="font-size:15px;line-height:1">🔗</span>' +
-          '<span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(display) + '</span>' +
-          '<span style="color:#86efac;font-weight:600;font-size:11px;flex-shrink:0">Copied!</span>';
+          '<span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500">' + esc(display) + '</span>' +
+          '<span style="color:#178a4c;font-weight:700;font-size:11px;flex-shrink:0">Copied!</span>';
         Object.assign(toast.style, {
           position: "fixed",
           top: "20px",
           right: "20px",
-          background: "#0f172a",
-          color: "#f1f5f9",
+          background: "#fff",
+          color: "#15121f",
+          border: "2px solid #15121f",
           padding: "10px 16px",
           borderRadius: "10px",
           fontSize: "12px",
-          fontFamily: "-apple-system, 'SF Pro Text', system-ui, monospace",
-          boxShadow: "0 4px 24px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.06)",
+          fontWeight: "500",
+          fontFamily: "-apple-system, 'SF Pro Text', system-ui, sans-serif",
+          boxShadow: "3px 3px 0 #15121f",
           zIndex: "2147483647",
           display: "flex",
           alignItems: "center",
